@@ -1,0 +1,306 @@
+<h1 align="center"> Поиск угроз с помощью Jupyter Notebook.</h1>
+
+### Часть 1. Ваш первый Notebook
+  
+![](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_ezJx8ZEu1Va14iscq_h5Gg.png)
+ 
+Когда речь заходит об обнаружении угрозы, сколько раз вы слышали, как кто-то говорит: «Всё в моей голове, просто спросите меня, если у вас есть какие-либо вопросы!» или «Только он / она / они знает(ют), как это сделать!» Много раз, верно? Отсутствие документирования, стандартизации или обмена информацией о том, как анализировать данные для обнаружения потенциальных вторжений в сеть, встречается чаще, чем вы думаете, особенно если команда разнообразна с технической и экспертной точки зрения. Это влияет не только на стратегии обнаружения, но и на динамику вашей команды.  
+
+Теперь, сколько раз вы также думали о более эффективном, интуитивном или творческом способе анализа событий безопасности, которые собирает ваша организация? И считали ли вы возможности панели поиска, зависящей от одного языка, ограниченными?  
+
+Эта статья является частью из пяти статей, в которой будет представлена концепция использования **Jupyter Notebook** для более динамичного, гибкого и независимого от языка способа анализа событий безопасности. В это же время она поможет вашей команде документировать, стандартизировать и совместно использовать сценарии по обнаружению. Что-то, что вы можете интегрировать с такими проектами, как [ThreatHunter-Playbook](https://github.com/hunters-forge/ThreatHunter-Playbook), и развёртывать его дома **бесплатно** и в течение **неограниченного** времени с такими проектами с открытым исходным кодом, как [HELK](https://github.com/Cyb3rWard0g/HELK).  
+
+В первой статье я расскажу об основах работы **Jupyter Notebook**, о том, как создать свой первый «notebook» (блокнот) и о том, как выполнить несколько начальных базовых команды в Python.   
+
+Остальные части можно найти по следующим ссылкам:  
+
+- [Поиск угроз с помощью Jupyter Notebook. Часть 2. Базовый анализ данных с помощью Pandas].  
+
+- [Поиск угроз с помощью Jupyter Notebook. Часть 3. Запросы Elasticsearch через Apache Spark].  
+
+- [Поиск угроз с помощью Jupyter Notebook. Часть 4. SQL JOIN через Apache SparkSQL].  
+
+- [Поиск угроз с помощью Jupyter Notebook. Часть 5. Документирование, совместное использование и запуск книг-охотников за угрозами!]  
+
+### Что такое Notebook?
+Представляйте блокнот как документ, к которому вы можете получить доступ через веб-интерфейс, позволяющий сохранять **input** (т. е. живой код) и **output** (т. е. результаты выполнения кода / вывод оцененного кода) интерактивных сеансов, а также важные примечания. Такие примечания необходимы для объяснения методологии и шагов, предпринятых для выполнения конкретных задач (например, анализ данных).  
+
+## Что такое Jupyter Notebook?
+> *Jupyter Notebook — это веб-приложение с открытым исходным кодом, с помощью которого вы сможете создавать и обмениваться документами, содержащими живой код, уравнения, визуализации и текст повествования. Сюда входит: очистка и преобразование данных, численное моделирование, статистическое моделирование, визуализация данных, машинное обучение и многое другое.*
+
+Проект Jupyter Notebook представляет собой эволюцию библиотеки [IPython Notebook](https://ipython.readthedocs.io/en/stable/overview.html), которая, в первую очередь, была разработана для улучшения **стандартной интерактивной консоли python**. Эта консоль позволяет выполнять научные операции и предоставляет расширенные возможности анализа данных с помощью совместно используемых веб-документов.
+
+![2](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_nFokct6zSpBRMcuEJLNGuA.png)
+ 
+В настоящее время проект Jupyter Notebook поддерживает не только Python, но и более 40 языков программирования, таких как R, Julia, Scala и PySpark. На самом деле, его название первоначально произошло от трёх языков программирования: **Ju**lia, **Py**thon и **R**, что сделало его одним из первых приложений для ноутбуков, не зависящих от языка, и теперь считается одной из наиболее предпочтительных сред для исследователей и инженеров в сообществе для изучения и анализа данных.
+
+![3](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_bBvyeEauEUOczXJ-0Nj25A.png)
+ 
+## Как работает Jupyter Notebook?
+Jupyter Notebook работает с так называемой **двухпроцессной моделью**, основанной на инфраструктуре **ядро-клиент**. Эта модель применяет аналогичную концепцию к среде программирования [Read-Evaluate-Print Loop (REPL)](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop), которая принимает входные данные одного пользователя, оценивает их и возвращает результат пользователю.
+
+![4](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_OSnF3tM2sXsVXrmM4qV2qw.png)
+
+Основываясь на концепции **двухпроцессной модели**, объяснить основные компоненты Jupyter можно следующим образом:
+
+### Jupyter Client
+- Позволяет пользователю отправлять код в ядро в виде [Qt Console](https://github.com/jupyter/qtconsole) или браузера через **документы блокнота**.
+
+- С точки зрения REPL, клиент выполняет операции `read` и `print`.
+
+- Блокноты размещаются на веб-сервере Jupyter, который использует [Tornado](https://www.tornadoweb.org/en/stable/) для обслуживания HTTP-запросов.
+### Jupyter Kernel
+- Получает код, отправленный клиентом, выполняет его и возвращает результаты обратно клиенту для отображения. Процесс ядра может иметь несколько клиентов, взаимодействующих с ним, поэтому эту модель также называют **разделенной двухпроцессной моделью**.
+
+- С точки зрения REPL ядро выполняет операцию `evaluate`.
+
+- Ядро и клиенты обмениваются данными по протоколу интерактивных вычислений на основе библиотеки асинхронных сообщений [ZeroMQ](https://zeromq.org/) (низкоуровневый транспортный уровень) и WebSockets (на основе TCP).
+
+### Документ Jupyter Notebook
+- Блокноты автоматически сохраняются и хранятся на диске в формате JavaScript Object Notation (JSON) с открытым исходным кодом и расширением `.ipynb`.
+## Jupyter Lab
+- Это пользовательский веб-интерфейс следующего поколения для Project Jupyter.
+- JupyterLab в конечном итоге заменит классический Jupyter Notebook.
+- Мы будем использовать расширение Jupyter Lab на протяжении всех статей.
+
+![5](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_HWwfPlpVnYaM8q1LnnkZCg.png)
+ 
+## Установка Jupyter
+Я уверен, что вам не терпится установить Jupyter и начать изучать его возможности, но сначала вы должны решить, хотите ли вы установить сервер Jupyter Notebook непосредственно в вашей системе, разместить его на виртуальной машине или в док-контейнере.
+
+Я считаю, что важно предоставить вам варианты, чтобы вы почувствовали себя комфортно при работе с инструментами, какими бы вам ни хотелось. Если вы хотите выполнить классическую установку непосредственно в вашей системе, следуйте официальным [документам Jupyter Install](https://jupyter.org/install).
+
+## Запуск Jupyter через Docker
+В этой статье мы будем использовать [проект HELK](https://github.com/Cyb3rWard0g/HELK). Мне нравится делиться стандартизированной и рабочей средой через образы докеров, которые помогают сосредоточиться на возможностях приложения, а не тратить время на устранение неполадок при установке сервера.
+
+### Требования
+- [Проект HELK](https://github.com/Cyb3rWard0g/HELK)
+### Начальные шаги
+- Скопируйте последний репозиторий `HELK`, измените текущий каталог на `HELK/docker` и запустите сценарий `helk_install.sh` с именем sudo.
+
+```
+git clone https://github.com/Cyb3rWard0g/HELK.git
+cd HELK/docker
+sudo ./helk_install.sh
+```
+- Для этой статьи мы будем использовать вариант 3 с лицензией basic.
+
+![6](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_AFGeUKlO1p-9mJ_7nEQ8OA.png)
+ 
+- Как только сценарий завершится (около 5–10 минут), вы увидите похожий вывод:
+
+![7](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_shnFqAuKp7jZfZm-L3v9hQ.png)
+ 
+- Перейдите по ссылке `HELK JUPYTER SERVER URL`.
+
+- Возможно получить `Privacy Error`. Просто проигнорируйте её, нажмите `Advanced`, а затем `Proceed`.
+ 
+ ![8](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_EWFxgWAIYGmWuq7pc7bWNQ.png)
+ 
+ ![9](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_76dU5PQ0WmSnHHdIsF-0Tw.png)
+
+`COPY` `JUPYTER CURRENT TOKEN`, который отображается на вашей консоли, и `PASTE` `TOKEN` в поле `Password or token` и нажмите `Log in`.
+
+![10](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_gF9bfMneWX2xO7h92xJkNw.png)
+
+- Вы получите доступ к главному меню Jupyter Lab.
+
+![11](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_U-KZWUDltg4xAT07AFdtJQ.png)
+ 
+- Как вы видели (изображение выше), есть папка с именем `datasets`. Она содержит набор данных [Mordor](https://github.com/hunters-forge/mordor) по умолчанию, который мы будем использовать в следующих статьях. Также есть несколько блокнотов для вас. Я сделал все это для того, чтобы вы ознакомились с концепциями, которыми я буду делиться.
+
+## Изучение основного интерфейса Jupyter
+### Раздел браузера файлов
+- В этом разделе показаны доступные объекты, такие как папки или файлы, которые вы можете использовать. Вы можете `rename`, `move`, `download`, или `delete` любые папки или файлы, щелкая правой кнопкой мыши по объектам.
+
+![12](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_vow-JTyBZJ3eiLXVIi1pfQ.png)
+
+![13](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_T6TPnDKW2r2DR73ouCI2CQ.png)
+ 
+- Также вы можете загрузить файл, который существует локально в вашей системе, нажав на значок `Upload`, как показано ниже.
+
+![14](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_IH5jVguqi7eRmWwGLDOhpg.png)
+
+![15](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_uFlrxK42Oprhl6aApcpR1A.png)
+ 
+- Кроме того, вы сможете создавать новые объекты, такие как `Notebooks`, текстовые файлы и даже запускать терминал bash.
+
+![16](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_A8CFoIbHC1TrSBS8vofXoA.png)
+ 
+- Сделать это можно также из панели управления, как показано ниже.
+
+![17](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_bY-c-GIW78R50UfLe48bOw.png)
+ 
+- Как вы можете видеть на изображении выше, наш сервер Jupyter имеет четыре доступных ядра: **Python 3**, **PySpark**, **R** и **Syplon**.
+
+- По умолчанию Jupyter поставляется с ядром `Python 3 (IPython)`. Команда Jupyter поддерживает [ядро IPython](https://github.com/ipython/ipython), поскольку сервер Jupyter Notebook зависит от функциональности ядра IPython. Многие другие языки, помимо Python, можно использовать в блокноте. Это то, что подразумевается под языковым подходом. Если вы хотите узнать больше о других ядрах, посмотрите здесь.
+### Секция работы терминалов и ядер
+- В этом разделе представлена информация о текущих запущенных процессах Jupyter. Когда вы создадите блокнот или начнёте сеанс терминала, просмотреть эти процессы можно здесь.
+
+![18](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_Av1Vjuhnoqpt4AWw9MOIJA.png)
+ 
+### Раздел «Команды»
+- В этом разделе представлена информация о нескольких командах, доступных для взаимодействия с файлами новых консолей, ядра и др.
+ 
+![19](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_bHw7aG7Mx_lVemQcldZ9aw.png)
+
+![20](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_gkd-EcU5yV7rD1nbQm32HQ.png)
+
+## Ваш первый Notebook!
+Давайте создадим наш первый блокнот и познакомимся с дополнительными опциями.
+
+- Вернитесь в раздел **Launcher** и нажмите на конкретное ядро, которое вы хотите использовать для инициализации нового блокнота. Давайте выберем `Python 3`.
+
+![21](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_OvQcdSsiymLPNu7WOpFV_A.png)
+ 
+- Вы попадёте в основной веб-интерфейс Notebook с  блокнотом под названием `Unititled` и одной доступной ячейкой `input(In)`, в которую можно добавить код для запуска ядра `Python 3`.
+
+- Вы также увидите новый файл c названием `Unititled` и расширением `ipynb`. Блокноты сохраняются автоматически.
+
+![22](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_AlFoIKTGYP0Q_phxxCjGUA.png)
+ 
+- Раздел **File Browser** можно свернуть, нажав на его значок.
+
+![23](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_dbwKKJXYY6o5QhGxsrQ8fA.png)
+
+![24](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_JeKts4maATJqVhfZ8NnhYw.png)
+ 
+- Свой блокнот можно переименовать, щелкнув правой кнопкой мыши на заголовке блокнота и выбрав `Rename Notebook`.
+
+![25](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_WQahBJCys-NP1yiF5TjfLQ.png)
+ 
+![26](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_M6JeqDnIVHEk3jsErvDJOQ.png)
+ 
+![26/1](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_NPCaXDqXK7IOAmNd_-nA0w.png)
+ 
+- Если вы проверите сеансы ядра Jupyter, вы увидите, что ваш блокнот работает с возможностью отключения ядра.
+
+![27](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_8eY8eX3rRPHWwqVm6xDL6Q.png)
+ 
+## Изучение интерфейса Notebook
+В интерфейсе блокнота доступно несколько опций, и большинство из них очень просты и работают так же, как и на обычной панели инструментов документа, где вы можете сохранять, открывать или закрывать файлы. Однако есть несколько вариантов и концепций, которые очень важно понять:
+### Ячейки интерфейса
+
+![28](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_3lUTsSnm9Tw_Zx4t3O4ncA.png)
+ 
+1️.	Одна из основных частей интерфейса — это `input cell container`, в котором можно ввести код (например, Python) или текст (например, Markdown), а ядро  оценивает и выполняет запрос.
+
+2️. Слева от ячейки `input cell` находится `input label`, которая отслеживает выполнение кода через последовательность чисел, начиная с `[1]`. Если запрос ещё не запущен, ячейка отображает пустые скобки `[ ]`. Если в ядре выполняется код, внутри скобок `[]` появляется звёздочка `*`.
+
+3️.	Вы можете сохранить содержимое блокнота, добавить новые ячейки (➕), вырезать / удалить ячейку (✂) ️, скопировать и вставить ячейки.
+
+4️.	Вы можете запустить код, выбрав `input cell container` и нажав на `run cell button`. А также открыть ячейку с помощью `SHIFT + ENTER`.
+
+5️.	С помощью выпадающей кнопки `code` вы можете выбрать тип ввода, с которым будете работать. В настоящее время существует три типа ввода ячеек. Тип ввода `code` разрешает пользователю запускать код на определённом языке программирования, заданном в ядре. В данным случае — это Python 3.
+
+Также получить доступ к дополнительным параметрам можно на вкладке `Run`, как показано ниже:
+ 
+ ![29](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_2g3Zbz-uda1rMgnkKRPwRA.png)
+ 
+### Ядро интерфейса
+- Получить доступ к параметрам ядра можно через вкладку `Kernel`.
+
+![30](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1__vojKIKCckXzKRPrRUCwuA.png)
+ 
+## Запустим код
+Теперь, когда мы понимаем, как взаимодействовать с интерфейсом Jupyter Notebook, давайте запустим какой-нибудь базовый код Python в ячейке `input cell container`.
+
+- Введите [PRINT](https://docs.python.org/3/library/functions.html#print) - простое утверждение для python - и запустите ячейку (`SHIFT + ENTER`)
+
+`print("Hola World!!")`
+
+![31](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_ezJx8ZEu1Va14iscq_h5Gg%20(1).png)
+ 
+- Попробуйте запустить цикл [FOR loop](https://docs.python.org/3/tutorial/controlflow.html#for-statements) в последовательности из 5 чисел, сгенерированных [RANGE](https://docs.python.org/3/tutorial/controlflow.html#the-range-function).
+
+`for x in range(5):
+    print(x)`
+
+![32](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_4h1AFhJXRH_Ax9e4cwF1Pw.png)
+
+- Переключите новый `cell type` на `Markdown`, чтобы изменить вид разметки.
+
+![33](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_zDEhNRk9udFnGzjl9adh6g.png)
+ 
+- `COPY`, `PASTE`, и `RUN` выполняют в ячейке `Markdown`:
+```
+# Threat Detection
+## Data Analysis
+### Data Sources
+#### Process Monitoring
+PowerShell Execution
+ ```
+ 
+![34](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_BxqQM5V8yQERsFeCSOa6HA.png)
+ 
+![35](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_wJwyntr60mWBU5iq-dmJLg.png)
+ 
+- Выделите все текущие ячейки с помощью `SHIFT + UP` и удалите их.
+
+![36](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1__FuOc2mFoLyCvgyHjqMo7A.png)
+ 
+- Сделайте переменную доступной для нескольких входных ячеек, создав переменную в одной ячейке. Запустите её прежде, чем вызвать переменную из другой ячейки.
+
+`dog_name = 'Pedro'`
+
+`print(dog_name + " is my best friend!")`
+
+![37](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_xbqa8gaj2-sLz1YFVMU65A.png)
+ 
+Одной из полезных функций стандартной оболочки Python является **завершение табуляции**.
+
+- Введите первые буквы переменной `dog_name` и нажмите клавишу **tab** на клавиатуре. Так вы отыщите любые переменные, соответствующие буквам, которые вы уже ввели, в пространстве имён.
+
+`dog_<tab>`
+
+![38](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_jAQWqEnvOwSnSKedSUNqgQ.png)
+ 
+- Также можно **обозначить** полные методы или атрибуты, доступные в объекте.
+
+- Давайте определим список с элементами о моей собаке и сохраним его в переменной.
+
+`dog_list = ['pedro, 4, 2015]`
+- Затем можно ввести `dog_list` с **точкой** после и нажать клавишу **tab**, чтобы просмотреть методы, которые применимы к этому **списку**. Так, например, вы сможете добавить новый элемент в список, используя функцию **append**.
+
+![39](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_4rX83RQBSmALAP10HaY26g.png)
+ 
+- То же самое можно повторить и для модулей. Давайте импортируем модуль в [случайном порядке](https://docs.python.org/3/library/random.html) и заполним доступные методы или функции.
+
+![40](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_1QU8cd_jfS3igbVwgy4rKg.png)
+ 
+- Функция завершения табуляции также работает для путей к файлам. Мы можем проверить это с помощью папки `datasets`.
+
+![41](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_dX-9II-lfFx7Qeyu_g99lA.png)
+ 
+Еще одна интересная функция — это **интроспекция**, и она используется для получения информации об объекте (то есть списке, функциях и т. д.). Просто введите знак вопроса (?) до или после объекта.
+
+- Давайте использовать его для нашей переменной `dog_list` (список).
+ 
+![42](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_SOEGYtUHuRyIsWB4Fn9EvQ.png)
+ 
+- Что насчёт функции? Давайте сравним её с функцией `print`. Подставив один вопросительный знак (?), появится функция `docstring`.
+
+![43](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Jupyter%20Notebook/Pictures/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%201/1_j6TTwjR2yi-FAn6KP9qD-w.png)
+
+<h3 align="center">. . .</h3>
+
+Было очень легко, правда? Если вы впервые использовали Jupyter Notebook, я надеюсь, что эта статья помогла вам ознакомиться с основными концепциями и ускорить применение **вашей первой среды Jupyter**.
+
+Если вы снова захотите получить токен Jupyter, вам необходимо выполнить следующее:
+```
+sudo docker exec -ti helk-jupyter jupyter notebook list | grep "token" | sed 's/.*token=\([^ ]*\).*/\1/'
+```
+В [следующей статье] мы воспользуемся доступными блокнотами в контейнере jupyter HELK, чтобы немного больше узнать об анализе данных журналов событий безопасности с помощью библиотеки python с именем [Pandas](https://pandas.pydata.org/).
+
+## Ссылки
+https://jupyter.org/
+
+https://jupyter4edu.github.io/jupyter-edu-book/
+
+https://jupyter.readthedocs.io/en/latest/architecture/how_jupyter_ipython_work.html
+
+https://ipython-books.github.io/chapter-3-mastering-the-jupyter-notebook/
+
+https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop
+
+https://jupyterlab.readthedocs.io/en/stable/getting_started/overview.html#overview
