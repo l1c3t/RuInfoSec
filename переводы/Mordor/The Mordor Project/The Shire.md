@@ -1,0 +1,48 @@
+<h1 align="center"> Mordor Environments</h1> 
+
+## The Shire
+
+![1]()
+
+Эта среда Мордора была разработана для репликации очень маленькой сети с необходимыми устройствами для сбора информации о состязательной деятельности. Эта среда является средой Windows.
+### Дизайн Cети
+
+![2]()
+
+### Конечные точки для пользователей
+
+Platform |	Version |	Purpose |	FQDN | IP Address |	Main User |
+---------|:---------|:----------|:------|:----------|------------|
+Windows	| Win 2019 | DC |	HFDC01.shire.com |	172.18.39.5	|Administrator |
+Windows	| Win 10 |	Client |	HR001.shire.com	| 172.18.39.106 | nmartha |
+Windows	| Win 10 |	Client |	IT001.shire.com	| 172.18.39.105	| pgustavo |
+Windows |	Win 10 |	Client |	ACCT001.shire.com |	172.18.39.100 |	lrodriguez |
+Windows	| Win 2019	| Log Collector |	WECServer.shire.com |	172.18.39.102 |	Administrator |
+Windows |	Win 2019 |	File Server	| FILE001.shire.com |	172.18.39.103 |	Administrator |
+Linux |	Ubuntu 18 |	Data Analysis |	HELK |	172.18.39.6 |	ubuntu |
+Linux	| Ubuntu 18 |	Red Team C2	| RTO	| 172.18.39.8	| ubuntu |
+
+### Информация о пользователях Windows
+
+FirstName |	LastName	| Sam |	Department |	JobTitle |	Password |	Identity |
+---------|:---------|:----------|:------|:----------|------------|-----------|
+Norah |	Martha |	nmartha |	Human Resources |	HR Director	|S@l@m3!123 |	Users |
+Pedro	| Gustavo |	pgustavo |	IT Support	| CIO	| W1n1!2019	| Domain | Admins |
+Lucho	| Rodriguez |	lrodriguez | Accounting	| VP |	T0d@y!2019 |	Users |
+Sysmon |	MS |	sysmonsvc |	IT Support |	Service Account	| Buggy!1122 |	Users |
+Administrator ||	Administrator| | |	P1ls3n!	| Users
+
+Вы можете обновить пароль HELK в [файле параметров HELK](https://github.com/hunters-forge/Blacksmith/blob/master/aws/mordor/cfn-parameters/shire/helk-server-parameters.json), используемом для развёртывания среды. Этот файл размещён в проекте [Blacksmith](https://github.com/hunters-forge/Blacksmith), поскольку он является официальным репозиторием для всех шаблонов, используемых для развёртывания в любой среде Mordor.
+
+- Имя пользователя по умолчанию: helk
+- Пароль по умолчанию: hunt1ng!
+### Собранные источники данных
+#### Аудит безопасности Windows
+- https://github.com/hunters-forge/Blacksmith/blob/master/aws/mordor/cfn-files/scripts/default/Set-Auditing.ps1
+
+#### Аудит Sysmon
+Конфигурация Sysmon:
+- https://github.com/hunters-forge/Blacksmith/blob/master/aws/mordor/cfn-files/configs/shire/shire_sysmon.xml
+
+### Развёртывание среды
+[Проект Blacksmith](https://blacksmith.readthedocs.io/en/latest/) отвечает за развёртывание этой среды. Поэтому вы можете следовать инструкциям, приведённым [здесь](https://blacksmith.readthedocs.io/en/latest/mordor_shire.html).
