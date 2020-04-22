@@ -1,6 +1,6 @@
 #### Перевод статьи [Threat Hunter Playbook ⚔ + Mordor Datasets 📜 + BinderHub 🌎 = Open Infrastructure 🏗 for Open Hunts 🏹 💜](https://medium.com/threat-hunters-forge/threat-hunter-playbook-mordor-datasets-binderhub-open-infrastructure-for-open-8c8aee3d8b4)
 
-##### Автор Роберто Родригес ([Roberto Rodriguez](https://medium.com/@Cyb3rWard0g))
+##### Автор: Роберто Родригес ([Roberto Rodriguez](https://medium.com/@Cyb3rWard0g))
 
 ![1](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Threat%20Hunters%20Forge/Pictures/1_Hp7nr-1QOeZzHyv0Orw4uA.png)
 
