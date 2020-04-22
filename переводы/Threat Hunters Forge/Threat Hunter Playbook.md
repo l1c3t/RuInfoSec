@@ -249,7 +249,7 @@ WHERE o.channel = "Microsoft-Windows-Sysmon/Operational"
 
 Я поделился тем же видео в рамках беседы ATT&CKcon 2.0 с Хосе Луисом Родригесом ([Jose Luis Rodriguez](https://medium.com/@cyb3rpandah)), а также слайдами нашей презентации, приведёнными ниже:
 
- ![26](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Threat%20Hunters%20Forge/Pictures/1_9WbXEpOxOhaMq99CwG1ESQ.png) ([**Роберто Родригес**](https://twitter.com/Cyb3rWard0g))
+ ![26](https://github.com/l1c3t/RuInfoSec/blob/master/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%8B/Threat%20Hunters%20Forge/Pictures/1_9WbXEpOxOhaMq99CwG1ESQ(2).png) ([**Роберто Родригес**](https://twitter.com/Cyb3rWard0g))
  @Cyb3rWard0g
 
  [@Cyb3rPandaH](https://twitter.com/Cyb3rPandaH) вместе со мной весело провели время [@MITREattack](https://twitter.com/MITREattack) [#ATTACKcon](https://twitter.com/hashtag/ATTACKcon?src=hash), делясь своими исследованиями Notebook'ов [@ProjectJupyter](https://twitter.com/ProjectJupyter), [@mybinderteam](https://twitter.com/mybinderteam), [@HunterPlaybook](https://twitter.com/HunterPlaybook) и [@Mordor_Project](https://twitter.com/Mordor_Project) [#ThreatHunting](https://twitter.com/hashtag/ThreatHunting?src=hash)
